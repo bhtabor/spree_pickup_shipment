@@ -1,0 +1,13 @@
+# This migration comes from spree_pickup (originally 20160531065135)
+class CreateSpreePickupLocations < SpreeExtension::Migration[5.2]
+  def change
+    create_table :spree_pickup_locations do |t|
+      t.string   :name
+      t.integer  :address_id, index: true
+      t.string   :phone
+      t.time     :start_time
+      t.time     :end_time
+      t.timestamps
+    end
+  end
+end
