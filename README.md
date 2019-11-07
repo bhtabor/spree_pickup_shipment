@@ -6,7 +6,7 @@ Introduction goes here.
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_pickup_shipment', github: '[your-github-handle]/spree_pickup_shipment'
+  gem 'spree_pickup_shipment', github: 'bhtabor/spree_pickup_shipment'
   ```
 
 2. Install the gem using Bundler:
