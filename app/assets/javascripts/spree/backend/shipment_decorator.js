@@ -31,6 +31,7 @@ ShipmentDecorator.prototype.sendRequest = function(url) {
     type: 'PUT',
     url: url,
     data: {
+      token: Spree.api_key
     }
   }).done(function () {
     window.location.reload();

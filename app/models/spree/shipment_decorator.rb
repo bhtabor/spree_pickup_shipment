@@ -8,7 +8,7 @@ Spree::Shipment.class_eval do
   state_machine do
 
     event :ship_for_pickup do
-      transition from: [:ready, :canceled], to: :shipped_for_pickup, if: :can_shipped_for_pickup?
+      transition from: [:ready, :canceled], to: :shipped_for_pickup, if: :pickup?
     end
     after_transition to: :shipped_for_pickup, do: :after_ship
 
@@ -36,8 +36,8 @@ Spree::Shipment.class_eval do
     return 'pending' unless order.can_ship?
     return 'pending' if inventory_units.any? &:backordered?
     return 'shipped' if shipped?
-    return 'ready_for_pickup' if ready_for_pickup?
     return 'shipped_for_pickup' if shipped_for_pickup?
+    return 'ready_for_pickup' if ready_for_pickup?
     return 'delivered' if delivered?
     order.paid? || Spree::Config[:auto_capture_on_dispatch] ? 'ready' : 'pending'
   end
@@ -57,16 +57,8 @@ Spree::Shipment.class_eval do
 
   private
 
-    def can_shipped?
-      order.can_ship?
-    end
-
-    def can_shipped_for_pickup?
-      order.pickup?
-    end
-
-    def update_order_shipment
-      Spree::ShipmentHandler.factory(self).send :update_order_shipment_state
-    end
+  def update_order_shipment
+    Spree::ShipmentHandler.factory(self).send :update_order_shipment_state
+  end
 
 end

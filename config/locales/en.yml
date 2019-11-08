@@ -2,4 +2,11 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  spree:
+    new_pickup_location: New Pickup Location
+    pickup_locations: Pickup Locations
+    greater_than_start_time: must be greater than start time
+    shipment_states:
+      delivered: delivered
+      ready_for_pickup: ready for pickup
+      shipped_for_pickup: shipped for pickup
