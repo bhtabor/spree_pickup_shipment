@@ -9,4 +9,4 @@ module Spree::Admin::ShippingMethodsControllerDecorator
   end
 end
 
-Spree::Admin::PickupLocationsController.prepend Spree::Admin::PickupLocationsControllerDecorator
+Spree::Admin::ShippingMethodsController.prepend Spree::Admin::ShippingMethodsControllerDecorator
