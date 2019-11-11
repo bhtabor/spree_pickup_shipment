@@ -38,8 +38,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sass-rails'
+  s.add_development_dependency 'sass-rails', '~> 5.0'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'sqlite3', '~> 1.3.6'
+  #fix: https://github.com/rails/rails/issues/35153
+  s.add_development_dependency 'sqlite3', '~> 1.4'
+  s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'shoulda-callback-matchers'
   s.add_development_dependency 'webdrivers', '~> 4.0.0'
 end
