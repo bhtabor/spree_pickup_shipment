@@ -3,4 +3,9 @@ FactoryBot.define do
   #
   # Example adding this to your spec_helper will load these Factories for use:
   # require 'spree_pickup_shipment/factories'
+  GEM_ROOT = File.dirname(File.dirname(File.dirname(__FILE__)))
+
+  Dir[File.join(GEM_ROOT, 'spec', 'factories', '**', '*.rb')].each do |factory|
+    require(factory)
+  end
 end

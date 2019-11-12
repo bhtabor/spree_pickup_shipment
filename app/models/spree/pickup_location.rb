@@ -5,7 +5,7 @@ module Spree
     attr_accessor :open_day_ids, :open_day_ids_was
 
     ##Associations
-    belongs_to :address
+    belongs_to :address, required: true
     has_many :timings, dependent: :destroy, class_name: 'Spree::Timing'
 
     ##Validations
@@ -15,7 +15,7 @@ module Spree
     validates_associated :address
 
     ##Callbacks
-    before_validation :create_timings, if: :open_day_ids_changed?
+    before_validation :set_timings, if: :open_day_ids_changed?
     after_initialize :set_open_day_ids
 
     accepts_nested_attributes_for :address
@@ -31,7 +31,7 @@ module Spree
       self.open_day_ids = self.open_day_ids_was = timings.map(&:day_id)
     end
 
-    def create_timings
+    def set_timings
       self.timings.delete_all
       self.timings = (open_day_ids.map{|i| Timing.new(day_id: i)})
     end

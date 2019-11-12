@@ -49,7 +49,7 @@ Spree::Shipment.class_eval do
       self.address_id = selected_shipping_rate.pickup_location_address.id
       self.pickup = true
     else
-      self.address_id = order.ship_address_id if order.present?
+      self.address_id = order.ship_address_id if order
       self.pickup = false
     end
     save!
