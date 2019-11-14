@@ -1,0 +1,11 @@
+<%= Spree.t('shipment_mailer.delivered_email.dear_customer') %>
+
+<%= Spree.t('shipment_mailer.delivered_email.instructions', number: @shipment.order.number) %>
+
+============================================================
+<%= Spree.t('shipment_mailer.delivered_email.shipment_summary') %>
+============================================================
+<% @shipment.manifest.each do |item| %>
+  <%= item.variant.sku %> <%= item.variant.product.name %> <%= item.variant.options_text %>
+<% end %>
+============================================================

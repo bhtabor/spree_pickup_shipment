@@ -37,13 +37,6 @@ describe Spree::PickupLocation, type: :model do
     it { is_expected.to respond_to(:open_day_ids_was) }
   end
 
-  describe '#full_address' do
-    it 'returns full address with all address attributes in an array' do
-      address = pickup_location.address
-      expect(pickup_location.full_address).to eq([address.address1, address.address2, address.zipcode, address.city, address.state.name, address.country.name].compact.join(', '))
-    end
-  end
-
   describe 'private methods' do
     describe '#set_open_day_ids' do
       it 'sets open day ids' do

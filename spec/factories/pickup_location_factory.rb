@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :pickup_location, class: Spree::PickupLocation do
     name { 'Sample pickup location' }
     address { FactoryBot.create(:address) }
-    phone { '12345' }
     start_time { Time.now }
     end_time { Time.now + 1.hour }
 

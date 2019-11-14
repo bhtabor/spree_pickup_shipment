@@ -1,6 +1,6 @@
 Spree::Order.class_eval do
 
-  Spree::Order::SHIPMENT_STATES += %w(delivered)
+  Spree::Order::SHIPMENT_STATES += %w(shipped_for_pickup ready_for_pickup delivered)
 
   _validators.delete(:shipment_state)
 

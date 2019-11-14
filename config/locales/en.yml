@@ -10,3 +10,25 @@ en:
       delivered: delivered
       ready_for_pickup: ready for pickup
       shipped_for_pickup: shipped for pickup
+    shipment_mailer:
+      shipped_for_pickup_email:
+        dear_customer: Dear Customer,
+        instructions: Your order %{number} has been shipped for pickup
+        shipment_summary: Shipment for Pickup Summary for order
+        shipping_method: "Shipping method for pickup: %{shipping_method}"
+        subject: Shipment for Pickup Notification
+        thanks: Thank you for your business. Package will usually be ready in an hour.
+        track_information: ! 'Tracking Information: %{tracking}'
+        track_link: "Tracking Link: %{url}"
+      ready_for_pickup_email:
+        dear_customer: Dear Customer,
+        instructions: Your order %{number} is now ready for pickup
+        shipment_summary: Ready for Pickup Summary for order
+        subject: Ready for Pickup Notification
+        thanks: Thank you for your business.
+      delivered_email:
+        dear_customer: Dear Customer,
+        instructions: Your order %{number} is delivered
+        shipment_summary: Delivery Summary for order
+        subject: Delivery Notification
+        thanks: Thank you for your business.

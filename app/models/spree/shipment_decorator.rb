@@ -10,20 +10,21 @@ Spree::Shipment.class_eval do
     event :ship_for_pickup do
       transition from: [:ready, :canceled], to: :shipped_for_pickup, if: :pickup?
     end
-    after_transition to: :shipped_for_pickup, do: :after_ship
+    after_transition to: :shipped_for_pickup, do: :after_ship_for_pickup
 
     event :ready_for_pickup do
       transition from: [:ready, :canceled], to: :ready_for_pickup
       transition from: :shipped_for_pickup, to: :ready_for_pickup
     end
-    after_transition from: [:ready, :canceled], to: :ready_for_pickup, do: :after_ship
+    after_transition from: [:ready, :canceled], to: :ready_for_pickup, do: :after_instant_ready_for_pickup
+    after_transition from: :shipped_for_pickup, to: :ready_for_pickup, do: :after_ready_for_pickup
 
     event :deliver do
       transition from: [:ready_for_pickup, :shipped], to: :delivered
     end
 
     after_transition from: :canceled, to: [:ready_for_pickup, :shipped_for_pickup], do: :after_resume
-    after_transition to: :delivered, do: :update_order_shipment
+    after_transition to: :delivered, do: :after_delivered
 
   end
 
@@ -57,8 +58,20 @@ Spree::Shipment.class_eval do
 
   private
 
-  def update_order_shipment
-    Spree::ShipmentHandler.factory(self).send :update_order_shipment_state
+  def after_ship_for_pickup
+    after_ship
+  end
+
+  def after_ready_for_pickup
+    Spree::ShipmentHandler.factory(self).ready_for_pickup
+  end
+
+  def after_instant_ready_for_pickup
+    Spree::ShipmentHandler.factory(self).ready_for_pickup(instant: true)
+  end
+
+  def after_delivered
+    Spree::ShipmentHandler.factory(self).delivered
   end
 
 end

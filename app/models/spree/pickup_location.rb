@@ -20,11 +20,6 @@ module Spree
 
     accepts_nested_attributes_for :address
 
-    def full_address
-      address = self.address
-      [address.address1, address.address2, address.zipcode, address.city, address.state.name, address.country.name].compact.join(', ')
-    end
-
     private
 
     def set_open_day_ids
