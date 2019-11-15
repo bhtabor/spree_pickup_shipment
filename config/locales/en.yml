@@ -6,6 +6,7 @@ en:
     new_pickup_location: New Pickup Location
     pickup_locations: Pickup Locations
     greater_than_start_time: must be greater than start time
+    pickup_shipping: Pickup Shipping
     shipment_states:
       delivered: delivered
       ready_for_pickup: ready for pickup
