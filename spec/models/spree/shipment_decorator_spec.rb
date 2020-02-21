@@ -75,12 +75,4 @@ describe Spree::Shipment, type: :model do
     end
   end
 
-  describe '#private methods' do
-
-    describe 'update_order_shipment' do
-      it 'updates order shipment' do
-        expect(shipment.send(:update_order_shipment)).to be_truthy
-      end
-    end
-  end
 end
