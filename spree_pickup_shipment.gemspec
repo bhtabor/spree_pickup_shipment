@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-activemodel-mocks'
   s.add_development_dependency 'sass-rails', '~> 5.0'
   s.add_development_dependency 'simplecov'
   #fix: https://github.com/rails/rails/issues/35153
