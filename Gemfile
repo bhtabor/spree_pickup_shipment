@@ -5,9 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'spree', github: 'spree/spree', branch: 'master'
+gem "spree", "~> 4.1.0"
 # Provides basic authentication functionality for testing parts of your engine
-gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: 'master'
+gem "spree_auth_devise", "~> 4.1.0"
 gem 'rails-controller-testing'
 
 gem 'rubocop', require: false
