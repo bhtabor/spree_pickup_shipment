@@ -1,0 +1,17 @@
+<%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.dear_customer') : Spree.t('shipment_mailer.shipped_email.dear_customer')  %>
+
+<%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.instructions', number: @shipment.order.number) : Spree.t('shipment_mailer.shipped_email.instructions', number: @shipment.order.number) %>
+
+============================================================
+<%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.shipment_summary') : Spree.t('shipment_mailer.shipped_email.shipment_summary') %>
+============================================================
+<% @shipment.manifest.each do |item| %>
+  <%= item.variant.sku %> <%= item.variant.product.name %> <%= item.variant.options_text %>
+<% end %>
+============================================================
+<% if @shipment.tracking %> 
+  <%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.track_information', tracking: @shipment.tracking) : Spree.t('shipment_mailer.shipped_email.track_information', tracking: @shipment.tracking) %>
+  <%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.track_link', url: @shipment.tracking_url) : Spree.t('shipment_mailer.shipped_email.track_link', url: @shipment.tracking_url) %>
+<% end %>
+
+<%= @shipment.pickup? ? Spree.t('shipment_mailer.shipped_for_pickup_email.thanks') : Spree.t('shipment_mailer.shipped_email.thanks') %>

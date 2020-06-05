@@ -1,0 +1,20 @@
+.badge-delivered {
+  background-color: #7DB942;
+}
+.badge-delivered a {
+  color: white !important;
+}
+
+.badge-ready_for_pickup {
+  background-color: #7DB942;
+}
+.badge-ready_for_pickup a {
+  color: white !important;
+}
+
+.badge-shipped_for_pickup {
+  background-color: #7DB942;
+}
+.badge-shipped_for_pickup a {
+  color: white !important;
+}
