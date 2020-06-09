@@ -5,7 +5,6 @@ Spree::Core::Engine.add_routes do
   end
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      get 'pickup_locations/search', to: 'pickup_locations#search', as: :pickup_locations_search
       resources :shipments, only: [:create, :update] do
         member do
           put :deliver
