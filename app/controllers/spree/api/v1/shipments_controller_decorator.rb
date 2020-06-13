@@ -1,13 +1,13 @@
 module Spree::Api::V1::ShipmentsControllerDecorator
   def ship_for_pickup
     find_and_update_shipment
-    @shipment.ship_for_pickup! if @shipment.ready?
+    @shipment.ship_for_pickup! if (@shipment.pickup? && (@shipment.ready? || @shipment.canceled?))
     respond_with(@shipment, default_template: :show)
   end
 
   def ready_for_pickup
     find_and_update_shipment
-    @shipment.ready_for_pickup! if @shipment.shipped_for_pickup? || @shipment.ready?
+    @shipment.ready_for_pickup! if (@shipment.shipped_for_pickup? || (@shipment.pickup? && (@shipment.ready? || @shipment.canceled?)))
     respond_with(@shipment, default_template: :show)
   end
 

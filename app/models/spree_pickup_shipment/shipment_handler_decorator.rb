@@ -1,8 +1,8 @@
 module SpreePickupShipment::ShipmentHandlerDecorator
   def ready_for_pickup(instant: false)
     if instant
-       @shipment.inventory_units.each &:ship!
-       @shipment.process_order_payments if ::Spree::Config[:auto_capture_on_dispatch]
+      @shipment.inventory_units.each &:ship!
+      @shipment.process_order_payments if ::Spree::Config[:auto_capture_on_dispatch]
     end
     @shipment.touch :ready_for_pickup_at
     update_order_shipment_state

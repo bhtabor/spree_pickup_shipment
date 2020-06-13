@@ -7,14 +7,13 @@ module SpreePickupShipment::ShipmentDecorator
     base.scope :ready_for_pickup, -> { with_state('ready_for_pickup') }
 
     base.state_machine do
-
       event :ship_for_pickup do
         transition from: [:ready, :canceled], to: :shipped_for_pickup, if: :pickup?
       end
-      after_transition to: :shipped_for_pickup, do: :after_ship_for_pickup
+      after_transition to: :shipped_for_pickup, do: :after_ship
 
       event :ready_for_pickup do
-        transition from: [:ready, :canceled], to: :ready_for_pickup
+        transition from: [:ready, :canceled], to: :ready_for_pickup, if: :pickup?
         transition from: :shipped_for_pickup, to: :ready_for_pickup
       end
       after_transition from: [:ready, :canceled], to: :ready_for_pickup, do: :after_instant_ready_for_pickup
@@ -26,7 +25,6 @@ module SpreePickupShipment::ShipmentDecorator
 
       after_transition from: :canceled, to: [:ready_for_pickup, :shipped_for_pickup], do: :after_resume
       after_transition to: :delivered, do: :after_delivered
-
     end
   end
 
@@ -42,6 +40,7 @@ module SpreePickupShipment::ShipmentDecorator
     return 'shipped_for_pickup' if shipped_for_pickup?
     return 'ready_for_pickup' if ready_for_pickup?
     return 'delivered' if delivered?
+
     order.paid? || Spree::Config[:auto_capture_on_dispatch] ? 'ready' : 'pending'
   end
 
@@ -59,10 +58,6 @@ module SpreePickupShipment::ShipmentDecorator
   end
 
   private
-
-  def after_ship_for_pickup
-    after_ship
-  end
 
   def after_ready_for_pickup
     Spree::ShipmentHandler.factory(self).ready_for_pickup
