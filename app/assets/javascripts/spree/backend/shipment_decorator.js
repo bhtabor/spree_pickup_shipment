@@ -37,7 +37,6 @@ ShipmentDecorator.prototype.sendRequest = function(url) {
     window.location.reload();
   }).fail(function (msg) {
     console.log(msg);
-    window.location.reload();
   });
 };
 
