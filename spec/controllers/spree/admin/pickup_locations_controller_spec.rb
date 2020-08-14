@@ -11,22 +11,25 @@ describe Spree::Admin::PickupLocationsController do
       allow(controller).to receive(:authorize_admin).and_return(true)
     end
 
-    context 'when record is found' do
-      before { get :new }
+    context 'when a default country is found' do
+      before do
+        country = FactoryBot.create(:country)
+        Spree::Config[:default_country_id] = country.id
+        get :new
+      end
 
       it 'renders response with success status' do
         expect(response.status).to eq(200)
       end
 
-      it 'builds a new pickup_location and address' do
+      it 'builds a new pickup_location' do
         expect(assigns(:pickup_location)).to be_an_instance_of(Spree::PickupLocation)
-        expect(assigns(:pickup_location).address).to be_an_instance_of(Spree::Address)
       end
     end
 
-    context 'when record is not found' do
+    context 'when a default country is not found' do
       before do
-        allow(Spree::Address).to receive(:build_default).and_raise(ActiveRecord::RecordNotFound)
+        allow(Spree::Country).to receive(:default).and_return(nil)
         get :new
       end
 

@@ -47,14 +47,12 @@ module SpreePickupShipment::ShipmentDecorator
   def selected_shipping_rate_id=(id)
     shipping_rates.update_all(selected: false)
     shipping_rates.update(id, selected: true)
-    if selected_shipping_rate.shipping_method_pickupable?
-      self.address_id = selected_shipping_rate.pickup_location_address.id
-      self.pickup = true
-    else
-      self.address_id = order.ship_address_id if order
-      self.pickup = false
-    end
+    self.pickup = selected_shipping_rate.shipping_method_pickupable?
     save!
+  end
+
+  def stock_pickup?
+    pickup? && stock_location == selected_shipping_rate.shipping_method.pickupable
   end
 
   private

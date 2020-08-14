@@ -2,18 +2,24 @@ module Spree
   class PickupLocation < ::Spree::Base
     attr_accessor :open_day_ids, :open_day_ids_was
 
-    belongs_to :address, required: true
     has_many :timings, dependent: :destroy, class_name: 'Spree::Timing'
 
-    validates :name, :address, :start_time, :end_time, presence: true
+    belongs_to :state, class_name: 'Spree::State', optional: true
+    belongs_to :country, class_name: 'Spree::Country'
+
+    validates :start_time, :end_time, presence: true
+    validates :name, presence: true, uniqueness: { allow_blank: true }
     validates :timings, presence: { message: 'is required. Please enter open days.' }
     validate :end_time_must_be_greater_than_start_time
-    validates_associated :address
+
+    scope :active, -> { where(active: true) }
 
     before_validation :set_timings, if: :open_day_ids_changed?
     after_initialize :set_open_day_ids
 
-    accepts_nested_attributes_for :address
+    def state_text
+      state.try(:abbr) || state.try(:name) || state_name
+    end
 
     private
 

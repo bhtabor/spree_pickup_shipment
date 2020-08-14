@@ -5,7 +5,6 @@ describe Spree::PickupLocation, type: :model do
   let(:pickup_location) { FactoryBot.create(:pickup_location, :with_timings) }
 
   describe 'associations' do
-    it { is_expected.to belong_to(:address) }
     it { is_expected.to have_many(:timings).dependent(:destroy) }
   end
 
@@ -53,10 +52,6 @@ describe Spree::PickupLocation, type: :model do
       it 'sets timings for pickup_location from open ids' do
         expect(pickup_location.timings.map(&:day_id)).to eq(pickup_location.open_day_ids)
       end
-    end
-
-    describe 'nested attributes' do
-      it { is_expected.to accept_nested_attributes_for(:address) }
     end
 
     describe '#end_time_must_be_greater_than_start_time' do

@@ -13,7 +13,7 @@ Deface::Override.new(
 
       <% if (shipment.ready? && can?(:update, shipment)) %>
         <% if shipment.pickup? %>
-          <%= link_to "Ship for Pickup", "javascript:;", class: "pickup_ship btn-sm ml-auto btn btn-success", data: { "shipment-number"=> shipment.number } %>
+          <%= link_to "Ship for Pickup", "javascript:;", class: "pickup_ship btn-sm ml-auto btn btn-success", data: { "shipment-number"=> shipment.number } unless shipment.stock_pickup? %>
         <% else %>
           <%= link_to Spree.t(:ship), "javascript:;", class: "ship ml-auto btn-sm btn btn-success", data: { "shipment-number"=> shipment.number } %>
           <div class="clearfix"></div>

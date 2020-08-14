@@ -9,7 +9,7 @@ describe Spree::Shipment, type: :model do
   let(:shipment) { FactoryBot.create(:shipment, order: order) }
   let(:shipping_method_not_pickupable) { FactoryBot.create(:shipping_method) }
   let(:pickup_location) { FactoryBot.create(:pickup_location, :with_timings) }
-  let(:shipping_method_pickupable) { FactoryBot.create(:shipping_method, pickup_location: pickup_location) }
+  let(:shipping_method_pickupable) { FactoryBot.create(:shipping_method, pickupable: pickup_location) }
 
   describe 'scopes' do
     describe 'delivered' do
@@ -52,10 +52,9 @@ describe Spree::Shipment, type: :model do
           shipment.shipping_rates.create shipping_method: shipping_method_pickupable, cost: 10.00, selected: false
         end
 
-        it "sets address_id to pickup_location address_id and pickup to true" do
+        it "sets pickup to true" do
           shipment.selected_shipping_rate_id = shipment.shipping_rates.first.id
 
-          expect(shipment.address_id).to eq pickup_location.address.id
           expect(shipment.pickup).to be_truthy
         end
       end
@@ -65,10 +64,9 @@ describe Spree::Shipment, type: :model do
           shipment.shipping_rates.create shipping_method: shipping_method_not_pickupable, cost: 10.00, selected: false
         end
 
-        it "sets address_id to order ship_address_id and pickup to false" do
+        it "sets pickup to false" do
           shipment.selected_shipping_rate_id = shipment.shipping_rates.first.id
 
-          expect(shipment.address_id).to eq shipment.order.ship_address_id
           expect(shipment.pickup).to be_falsey
         end
       end
